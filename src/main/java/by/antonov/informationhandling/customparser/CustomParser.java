@@ -1,6 +1,6 @@
 package by.antonov.informationhandling.customparser;
 
-import by.antonov.informationhandling.entity.Component;
+import by.antonov.informationhandling.entity.TextComponent;
 
 public abstract class CustomParser {
   protected CustomParser nextParser;
@@ -13,5 +13,5 @@ public abstract class CustomParser {
     return (this.nextParser == null);
   }
 
-  public abstract Component handle(String stringForParsing);
+  public abstract TextComponent handle(String stringForParsing);
 }

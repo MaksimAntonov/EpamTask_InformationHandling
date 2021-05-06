@@ -1,9 +1,9 @@
 package by.antonov.informationhandling.entity;
 
-public class Leaf extends Component{
+public class TextElement extends TextComponent {
   private final String charValue;
 
-  public Leaf(ComponentType componentType, String charValue) {
+  public TextElement(ComponentType componentType, String charValue) {
     super(componentType);
     this.charValue = charValue;
   }

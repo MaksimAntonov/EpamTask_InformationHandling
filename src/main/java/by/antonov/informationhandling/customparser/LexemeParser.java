@@ -1,18 +1,18 @@
 package by.antonov.informationhandling.customparser;
 
-import by.antonov.informationhandling.entity.Component;
+import by.antonov.informationhandling.entity.TextComponent;
 import by.antonov.informationhandling.entity.ComponentType;
-import by.antonov.informationhandling.entity.Composite;
-import by.antonov.informationhandling.entity.Leaf;
+import by.antonov.informationhandling.entity.TextComposite;
+import by.antonov.informationhandling.entity.TextElement;
 
 public class LexemeParser extends CustomParser{
   @Override
-  public Component handle(String stringForParsing) {
-    Component lexemeComponent = new Composite(ComponentType.LEXEME);
+  public TextComponent handle(String stringForParsing) {
+    TextComponent lexemeComponent = new TextComposite(ComponentType.LEXEME);
 
     String[] stringList = stringForParsing.trim().split("");
     for (String string : stringList) {
-      Component leaf = new Leaf(ComponentType.CHARACTER, string);
+      TextComponent leaf = new TextElement(ComponentType.CHARACTER, string);
 
       lexemeComponent.add(leaf);
     }

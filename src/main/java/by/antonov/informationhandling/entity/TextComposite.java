@@ -3,23 +3,23 @@ package by.antonov.informationhandling.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Composite extends Component{
-  private final List<Component> components;
+public class TextComposite extends TextComponent {
+  private final List<TextComponent> components;
 
-  public Composite(ComponentType componentType) {
+  public TextComposite(ComponentType componentType) {
     super(componentType);
     this.components = new ArrayList<>();
   }
 
-  public void add(Component component) {
+  public void add(TextComponent component) {
     this.components.add(component);
   }
 
-  public void remove(Component component) {
+  public void remove(TextComponent component) {
     this.components.remove(component);
   }
 
-  public List<Component> getComponents() {
+  public List<TextComponent> getComponents() {
     return new ArrayList<>(this.components);
   }
 

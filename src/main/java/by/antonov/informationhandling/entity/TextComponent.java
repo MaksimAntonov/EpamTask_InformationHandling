@@ -1,9 +1,9 @@
 package by.antonov.informationhandling.entity;
 
-public abstract class Component {
+public abstract class TextComponent {
   private final ComponentType componentType;
 
-  protected Component(ComponentType componentType) {
+  protected TextComponent(ComponentType componentType) {
     this.componentType = componentType;
   }
 
@@ -11,7 +11,7 @@ public abstract class Component {
     return this.componentType;
   }
 
-  public void add(Component component) {};
+  public void add(TextComponent component) {};
 
   public abstract String convertToString();
 }
