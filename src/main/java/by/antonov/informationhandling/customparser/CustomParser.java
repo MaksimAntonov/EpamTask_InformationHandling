@@ -5,13 +5,13 @@ import by.antonov.informationhandling.entity.TextComponent;
 public abstract class CustomParser {
   protected CustomParser nextParser;
 
-  public void next(CustomParser parser) {
+  public void nextParser(CustomParser parser) {
     this.nextParser = parser;
   }
 
-  public boolean hasNext() {
-    return (this.nextParser == null);
+  public boolean hasNextParser() {
+    return (this.nextParser != null);
   }
 
-  public abstract TextComponent handle(String stringForParsing);
+  public abstract void handle(TextComponent rootComponent);
 }
