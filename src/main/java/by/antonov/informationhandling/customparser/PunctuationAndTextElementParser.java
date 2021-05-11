@@ -33,7 +33,6 @@ public class PunctuationAndTextElementParser extends CustomParser{
           textSymbol = new TextSymbol(ComponentType.CHARACTER, strSymbol.charAt(0));
         }
         component.add(textSymbol);
-        //System.out.println("String: " + strSymbol);
       }
     }
   }
