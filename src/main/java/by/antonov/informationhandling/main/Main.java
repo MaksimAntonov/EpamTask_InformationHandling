@@ -6,24 +6,28 @@ import java.util.regex.Pattern;
 
 public class Main {
   public static void main(String[] args) {
-    String PATTERN = ".*(?<expr>\\([\\d|<>&~^]+\\)).*";
-    String str = "(~71&(2&3|(3|(2&1>>2|2)&2)|10&2))|78";
     Interpreter interpreter = new Interpreter();
+    String str = "(7^5|1&2<<(2|5>>2&71))|1200";   // 1202
+    Integer num = (7^5|1&2<<(2|5>>2&71))|1200;    // 1202
+    System.out.println(interpreter.calculateExpression(str) + " / " + num);
+    str = "(~71&(2&3|(3|(2&1>>2|2)&2)|10&2))|78"; // 78
+    num = (~71&(2&3|(3|(2&1>>2|2)&2)|10&2))|78;   // 78
+    System.out.println(interpreter.calculateExpression(str) + " / " + num);
+    str = "3>>5";   // 0
+    num = 3>>5;     // 0
+    System.out.println(interpreter.calculateExpression(str) + " / " + num);
 
-    Pattern pattern = Pattern.compile(PATTERN);
-    while (Pattern.matches(PATTERN, str)) {
-      Matcher matcher = pattern.matcher(str);
-      while (matcher.find()) {
-        String originalText = matcher.group("expr");
-        interpreter.parse(originalText);
-        System.out.println(originalText + " / " + interpreter.calculate());
-        str = str.replace(originalText, "" + interpreter.calculate());
-      }
-    }
+    str = "~6&9|(3&4)";   // 1
+    num = ~6&9|(3&4);     // 9
+    System.out.println(str + " = " + interpreter.calculateExpression(str) + " / " + num);
 
-    interpreter.parse(str);
-    Integer num = (~71&(2&3|(3|(2&1>>2|2)&2)|10&2))|78;
-    System.out.println(interpreter.calculate() + " / " + num);
+    str = "5|(1&2&(3|(4&(1^5|6&47)|3)|(~89&4|(42&7)))|1)";    // 7
+    num = 5|(1&2&(3|(4&(1^5|6&47)|3)|(~89&4|(42&7)))|1);      // 5
+    System.out.println(str + " = " + interpreter.calculateExpression(str) + " / " + num);
+
+    str = "5<<2";   // 64
+    num = 5<<2;     // 20
+    System.out.println(str + " = " + interpreter.calculateExpression(str) + " / " + num);
 
     /*interpreter.parse("3>>5");
     Integer num = 3>>5;

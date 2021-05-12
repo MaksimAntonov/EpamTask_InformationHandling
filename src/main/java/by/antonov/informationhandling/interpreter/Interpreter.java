@@ -6,17 +6,39 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Interpreter {
+  private final static String SUB_EXPRESSION_PATTERN = ".*(?<subexpression>\\([\\d|<>&~^]+\\)).*";
+  private final static String PRIORITY_LEVEL_1_PATTERN = "(?<first>~\\d+)";
+  private final static String PRIORITY_LEVEL_2_PATTERN = "(?<second>\\d+[<>]{2}\\d+)";
+  private final static String PRIORITY_LEVEL_3_PATTERN = "(?<third>\\d+&\\d+)";
+  private final static String PRIORITY_LEVEL_4_PATTERN = "(?<fourth>\\d+\\^\\d+)";
+  private final static String PRIORITY_LEVEL_5_PATTERN = "(?<fifth>\\d+\\|\\d+)";
   private final static String NUMBER_PATTERN = "(?<numbers>\\d++)";
   private final static String EXPRESSION_PATTERN = "(?<expression>\\||<<|>>|&|~|\\^)";
   private final List<AbstractExpression> expressionList = new ArrayList<>();
+
+  public Number calculateExpression(String expression) {
+    expressionList.clear();
+
+    Pattern pattern = Pattern.compile(SUB_EXPRESSION_PATTERN);
+    while (Pattern.matches(SUB_EXPRESSION_PATTERN, expression)) {
+      Matcher matcher = pattern.matcher(expression);
+      while (matcher.find()) {
+        String originalText = matcher.group("subexpression");
+        this.parse(originalText);
+        expression = expression.replace(originalText, "" + this.calculate());
+      }
+    }
+
+    this.parse(expression);
+    return this.calculate();
+  }
 
   public void parse(String expression) {
     String originalText;
     Pattern patternStep;
     Matcher matcherStep;
-    System.out.println(">" + expression);
 
-    patternStep = Pattern.compile("(?<first>~\\d+)");
+    patternStep = Pattern.compile(PRIORITY_LEVEL_1_PATTERN);
     matcherStep = patternStep.matcher(expression);
     while (matcherStep.find()) {
       originalText = matcherStep.group("first");
@@ -24,9 +46,7 @@ public class Interpreter {
       expression = expression.replace(originalText, "" + calculate());
     }
 
-    System.out.println(">>" + expression);
-
-    patternStep = Pattern.compile("(?<second>\\d+[<>]{2}\\d+)");
+    patternStep = Pattern.compile(PRIORITY_LEVEL_2_PATTERN);
     matcherStep = patternStep.matcher(expression);
     while (matcherStep.find()) {
       originalText = matcherStep.group("second");
@@ -34,9 +54,7 @@ public class Interpreter {
       expression = expression.replace(originalText, "" + calculate());
     }
 
-    System.out.println(">>" + expression);
-
-    patternStep = Pattern.compile("(?<third>\\d+&\\d+)");
+    patternStep = Pattern.compile(PRIORITY_LEVEL_3_PATTERN);
     matcherStep = patternStep.matcher(expression);
     while (matcherStep.find()) {
       originalText = matcherStep.group("third");
@@ -44,9 +62,7 @@ public class Interpreter {
       expression = expression.replace(originalText, "" + calculate());
     }
 
-    System.out.println(">>" + expression);
-
-    patternStep = Pattern.compile("(?<fourth>\\d+\\|\\d+)");
+    patternStep = Pattern.compile(PRIORITY_LEVEL_4_PATTERN);
     matcherStep = patternStep.matcher(expression);
     while (matcherStep.find()) {
       originalText = matcherStep.group("fourth");
@@ -54,7 +70,13 @@ public class Interpreter {
       expression = expression.replace(originalText, "" + calculate());
     }
 
-    System.out.println(">>" + expression);
+    patternStep = Pattern.compile(PRIORITY_LEVEL_5_PATTERN);
+    matcherStep = patternStep.matcher(expression);
+    while (matcherStep.find()) {
+      originalText = matcherStep.group("fifth");
+      parseSimpleExpression(originalText);
+      expression = expression.replace(originalText, "" + calculate());
+    }
   }
 
   public void parseSimpleExpression(String expression) {
@@ -76,6 +98,7 @@ public class Interpreter {
         case "^" -> expressionList.add(new TerminalExpressionXOR());
         case "<<" -> expressionList.add(new TerminalExpressionLeftShift());
         case ">>" -> expressionList.add(new TerminalExpressionRightShift());
+        case ">>>" -> expressionList.add(new TerminalExpressionZeroFillRightShift());
         case "~" -> expressionList.add(new TerminalExpressionBitwise());
       }
     }
