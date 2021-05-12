@@ -9,6 +9,6 @@ public class NonTerminalExpression extends AbstractExpression{
 
   @Override
   void interpret(Context context) {
-    context.addValue(this.numberValue);
+    context.pushValue(this.numberValue);
   }
 }

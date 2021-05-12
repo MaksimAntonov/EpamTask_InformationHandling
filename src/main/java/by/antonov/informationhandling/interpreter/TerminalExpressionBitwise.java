@@ -4,7 +4,7 @@ public class TerminalExpressionBitwise extends AbstractExpression {
 
   @Override
   public void interpret(Context context) {
-    Integer bitwise = -context.popValue();
+    Integer bitwise = ~context.popValue();
     context.pushValue(bitwise);
   }
 }
