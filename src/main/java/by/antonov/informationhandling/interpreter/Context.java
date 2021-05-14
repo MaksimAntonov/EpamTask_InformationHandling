@@ -13,11 +13,21 @@ public class Context {
   }
 
   public void pushValue(Integer value) {
-    integers.push(value);
+    integers.add(value);
   }
 
   public void addValue(Integer value) {
     integers.add(value);
+  }
+
+  public String toString() {
+    StringBuilder sb = new StringBuilder("Context[");
+    for (Integer integer : integers) {
+      sb.append(integer).append(",");
+    }
+    sb.append("]");
+
+    return sb.toString();
   }
 
   private void reverse() {
