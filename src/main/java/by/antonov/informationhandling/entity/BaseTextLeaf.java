@@ -9,7 +9,7 @@ public class BaseTextLeaf extends TextComponent{
   }
 
   @Override
-  public String convertToString() {
+  public String toString() {
     return this.baseText;
   }
 }

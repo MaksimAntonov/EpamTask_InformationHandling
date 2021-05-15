@@ -32,6 +32,4 @@ public abstract class TextComponent {
       List<TextComponent> components) {
     return null;
   }
-
-  public abstract String convertToString();
 }

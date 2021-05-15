@@ -30,7 +30,7 @@ public class TextComposite extends TextComponent {
     for (TextComponent component : components) {
       if (component.getComponentType().equals(ComponentType.BASE_TEXT)) {
         textComponent.remove(component);
-        return component.convertToString();
+        return component.toString();
       }
     }
 
@@ -54,25 +54,16 @@ public class TextComposite extends TextComponent {
     return components;
   }
 
-  public String convertToString() {
+  public String toString() {
     StringBuilder sb = new StringBuilder();
     components.forEach(component -> {
       ComponentType componentType = component.getComponentType();
       switch (componentType) {
-        case PARAGRAPH -> sb.append(component.convertToString()).append("\n");
-        case SENTENCE, LEXEME -> sb.append(component.convertToString()).append(" ");
-        default -> sb.append(component.convertToString());
+        case PARAGRAPH -> sb.append(component).append("\n");
+        case SENTENCE, LEXEME -> sb.append(component).append(" ");
+        default -> sb.append(component);
       }
     });
     return sb.toString().trim();
-  }
-
-  public String toString() {
-    StringBuilder sb = new StringBuilder("{");
-    sb.append(getComponentType().name());
-    components.forEach(sb::append);
-    sb.append("}");
-
-    return sb.toString();
   }
 }

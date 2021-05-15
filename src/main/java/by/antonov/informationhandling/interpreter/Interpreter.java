@@ -1,5 +1,13 @@
 package by.antonov.informationhandling.interpreter;
 
+import by.antonov.informationhandling.interpreter.impl.NonTerminalExpression;
+import by.antonov.informationhandling.interpreter.impl.TerminalExpressionAnd;
+import by.antonov.informationhandling.interpreter.impl.TerminalExpressionBitwise;
+import by.antonov.informationhandling.interpreter.impl.TerminalExpressionLeftShift;
+import by.antonov.informationhandling.interpreter.impl.TerminalExpressionOr;
+import by.antonov.informationhandling.interpreter.impl.TerminalExpressionRightShift;
+import by.antonov.informationhandling.interpreter.impl.TerminalExpressionXOR;
+import by.antonov.informationhandling.interpreter.impl.TerminalExpressionZeroFillRightShift;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -14,7 +22,7 @@ public class Interpreter {
   private final static String PRIORITY_LEVEL_5_PATTERN = "(?<step>[-\\d]+\\|[-\\d]+)";
   private final static String NUMBER_PATTERN = "(?<numbers>[-\\d]+)";
   private final static String EXPRESSION_PATTERN = "(?<expression>\\||<<|>>|&|~|\\^)";
-  private final List<AbstractExpression> expressionList = new ArrayList<>();
+  private final List<Expression> expressionList = new ArrayList<>();
 
   public Number calculateExpression(String expression) {
     Pattern pattern = Pattern.compile(SUB_EXPRESSION_PATTERN);
@@ -33,24 +41,10 @@ public class Interpreter {
   }
 
   public void parse(String expression) {
-    //System.out.println("0: " + expression);
-
     expression = PriorityStep(PRIORITY_LEVEL_1_PATTERN, expression);
-
-    //System.out.println("1: " + expression);
-
     expression = PriorityStep(PRIORITY_LEVEL_2_PATTERN, expression);
-
-    //System.out.println("2: " + expression);
-
     expression = PriorityStep(PRIORITY_LEVEL_3_PATTERN, expression);
-
-    //System.out.println("3: " + expression);
-
     expression = PriorityStep(PRIORITY_LEVEL_4_PATTERN, expression);
-
-    //System.out.println("4: " + expression);
-
     expression = PriorityStep(PRIORITY_LEVEL_5_PATTERN, expression);
   }
 
@@ -100,7 +94,7 @@ public class Interpreter {
 
   public Number calculate() {
     Context context = new Context();
-    for (AbstractExpression expression : expressionList) {
+    for (Expression expression : expressionList) {
       expression.interpret(context);
     }
     return context.popValue();

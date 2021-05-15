@@ -12,16 +12,7 @@ public class TextSymbol extends TextComponent {
     return this.charValue;
   }
 
-  public String convertToString() {
-    return Character.toString(this.charValue);
-  }
-
   public String toString() {
-    StringBuilder sb = new StringBuilder("{");
-    sb.append(getComponentType().name());
-    sb.append(" ").append(this.charValue);
-    sb.append("}");
-
-    return sb.toString();
+    return Character.toString(this.charValue);
   }
 }
