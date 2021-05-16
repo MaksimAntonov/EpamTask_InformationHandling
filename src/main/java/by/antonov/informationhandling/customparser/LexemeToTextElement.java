@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LexemeToTextElement extends CustomParser {
-  private final static String TEXT_ELEMENT_PATTERN = "^(?<before>[()\"'-]?)(?<element>[A-zА-яЁё0-9-']+)(?<after>[),!.?\"']?)$";
+  private final static String TEXT_ELEMENT_PATTERN = "^(?<before>[()\"'-]?)(?<element>[A-zА-яЁё0-9-']+)(?<after>[),!.?\"']*)$";
   private final static String NUMBER_SYMBOL_PATTERN = "\\d+";
   private final static String TEXT_SYMBOL_PATTERN = "[A-Za-zА-Яа-яЁё]";
 
@@ -30,7 +30,10 @@ public class LexemeToTextElement extends CustomParser {
       Matcher matcher = pattern.matcher(baseText);
       while (matcher.find()) {
         if (!matcher.group("before").isEmpty()) {
-          component.add(new TextSymbol(ComponentType.PUNCTUATION, matcher.group("before").charAt(0)));
+          String[] strSymbols = matcher.group("before").split("");
+          for (String strSymbol : strSymbols) {
+            component.add(new TextSymbol(ComponentType.PUNCTUATION, strSymbol.charAt(0)));
+          }
         }
 
         String elementText = matcher.group("element");
@@ -45,7 +48,10 @@ public class LexemeToTextElement extends CustomParser {
         component.add(textElement);
 
         if (!matcher.group("after").isEmpty()) {
-          component.add(new TextSymbol(ComponentType.PUNCTUATION, matcher.group("after").charAt(0)));
+          String[] strSymbols = matcher.group("after").split("");
+          for (String strSymbol : strSymbols) {
+            component.add(new TextSymbol(ComponentType.PUNCTUATION, strSymbol.charAt(0)));
+          }
         }
       }
     }
