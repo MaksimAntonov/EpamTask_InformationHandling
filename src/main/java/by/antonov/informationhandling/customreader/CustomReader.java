@@ -16,7 +16,6 @@ public class CustomReader {
 
     BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
-    String resultString = reader.lines().collect(Collectors.joining("\n"));
-    return resultString;
+    return reader.lines().collect(Collectors.joining("\n"));
   }
 }

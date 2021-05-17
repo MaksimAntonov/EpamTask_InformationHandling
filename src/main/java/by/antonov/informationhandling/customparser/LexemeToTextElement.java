@@ -13,7 +13,6 @@ import java.util.regex.Pattern;
 public class LexemeToTextElement extends CustomParser {
   private final static String TEXT_ELEMENT_PATTERN = "^(?<before>[()\"'-]?)(?<element>[A-zА-яЁё0-9-']+)(?<after>[),!.?\"']*)$";
   private final static String NUMBER_SYMBOL_PATTERN = "\\d+";
-  private final static String TEXT_SYMBOL_PATTERN = "[A-Za-zА-Яа-яЁё]";
 
   @Override
   public void handle(TextComponent rootComponent) {

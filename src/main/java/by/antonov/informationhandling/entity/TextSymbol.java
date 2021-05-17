@@ -8,10 +8,6 @@ public class TextSymbol extends TextComponent {
     this.charValue = symbol;
   }
 
-  public char getCharValue() {
-    return this.charValue;
-  }
-
   public String toString() {
     return Character.toString(this.charValue);
   }

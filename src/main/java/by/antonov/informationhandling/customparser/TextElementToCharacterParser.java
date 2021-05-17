@@ -5,11 +5,11 @@ import by.antonov.informationhandling.entity.TextComponent;
 import by.antonov.informationhandling.entity.TextSymbol;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TextElementToCharacterParser extends CustomParser{
-  private final static String PUNCTUATION_SYMBOL_PATTERN = "\\W";
-  private final static String NUMBER_SYMBOL_PATTERN = "\\d";
-  private final static String TEXT_SYMBOL_PATTERN = "[A-Za-zА-Яа-яЁё]";
+  private final static String SYMBOL_PATTERN = "(?<symbol>[A-Za-zА-Яа-яЁё0-9'-])";
 
   @Override
   public void handle(TextComponent rootComponent) {
@@ -25,9 +25,11 @@ public class TextElementToCharacterParser extends CustomParser{
 
     for (TextComponent component : components) {
       String baseText = component.getBaseText(component);
-      String[] strSymbols = baseText.split("");
-      for (String strSymbol : strSymbols) {
-        TextComponent textSymbol = new TextSymbol(ComponentType.CHARACTER, strSymbol.charAt(0));
+
+      Pattern pattern = Pattern.compile(SYMBOL_PATTERN);
+      Matcher matcher = pattern.matcher(baseText);
+      while (matcher.find()) {
+        TextComponent textSymbol = new TextSymbol(ComponentType.CHARACTER, matcher.group("symbol").charAt(0));
         component.add(textSymbol);
       }
     }
