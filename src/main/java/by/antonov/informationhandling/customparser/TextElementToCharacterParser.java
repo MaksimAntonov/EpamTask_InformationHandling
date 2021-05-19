@@ -19,9 +19,7 @@ public class TextElementToCharacterParser extends CustomParser{
   }
 
   private void componentParser(TextComponent rootComponent, ComponentType componentType) {
-    Optional<List<TextComponent>> components = rootComponent.getComponentsByType(
-        componentType,
-        new ArrayList<>());
+    Optional<List<TextComponent>> components = rootComponent.getComponentsByType(componentType);
 
     if (components.isPresent()) {
       for (TextComponent component : components.get()) {

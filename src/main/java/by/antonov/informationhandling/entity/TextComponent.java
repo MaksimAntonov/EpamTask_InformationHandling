@@ -29,10 +29,7 @@ public abstract class TextComponent {
     return Optional.empty();
   }
 
-  public Optional<List<TextComponent>> getComponentsByType(
-      ComponentType componentType,
-      List<TextComponent> components)
-  {
+  public Optional<List<TextComponent>> getComponentsByType(ComponentType componentType) {
     return Optional.empty();
   }
 }

@@ -17,9 +17,7 @@ public class LexemeToTextElement extends CustomParser {
 
   @Override
   public void parse(TextComponent rootComponent) {
-    Optional<List<TextComponent>> components = rootComponent.getComponentsByType(
-        ComponentType.LEXEME,
-        new ArrayList<>());
+    Optional<List<TextComponent>> components = rootComponent.getComponentsByType(ComponentType.LEXEME);
 
     Pattern pattern = Pattern.compile(TEXT_ELEMENT_PATTERN);
 

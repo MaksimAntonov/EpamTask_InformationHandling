@@ -17,9 +17,7 @@ public class ExpressionForSentence extends CustomParser {
   public void parse(TextComponent rootComponent) {
     Pattern expressionPattern = Pattern.compile(EXPRESSION_PATTERN);
     Interpreter interpreter = new Interpreter();
-    Optional<List<TextComponent>> components = rootComponent.getComponentsByType(
-        ComponentType.SENTENCE,
-        new ArrayList<>());
+    Optional<List<TextComponent>> components = rootComponent.getComponentsByType(ComponentType.SENTENCE);
 
     if (components.isPresent()) {
       for (TextComponent component : components.get()) {

@@ -16,9 +16,7 @@ public class SentenceToLexemeParser extends CustomParser{
   @Override
   public void parse(TextComponent rootComponent) {
     Pattern lexemePattern = Pattern.compile(LEXEME_PATTERN);
-    Optional<List<TextComponent>> components = rootComponent.getComponentsByType(
-        ComponentType.SENTENCE,
-        new ArrayList<>());
+    Optional<List<TextComponent>> components = rootComponent.getComponentsByType(ComponentType.SENTENCE);
 
     if (components.isPresent()) {
       for (TextComponent component : components.get()) {

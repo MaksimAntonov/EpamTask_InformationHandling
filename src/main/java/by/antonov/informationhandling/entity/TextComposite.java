@@ -40,22 +40,24 @@ public class TextComposite extends TextComponent {
     return Optional.empty();
   }
 
-  public Optional<List<TextComponent>> getComponentsByType(
-      ComponentType componentType,
-      List<TextComponent> components
-  ) {
-    Optional<List<TextComponent>> componentChild = this.getComponents();
-    if (componentChild.isPresent()) {
-      for (TextComponent component : componentChild.get()) {
+  public Optional<List<TextComponent>> getComponentsByType(ComponentType componentType) {
+    List<TextComponent> results = new ArrayList<>();
+
+    Optional<List<TextComponent>> components = this.getComponents();
+    if (components.isPresent()) {
+      for (TextComponent component : components.get()) {
         if (component.getComponentType().equals(componentType)) {
-          components.add(component);
+          results.add(component);
         } else {
-          component.getComponentsByType(componentType, components);
+          results.addAll(
+              component.getComponentsByType(componentType)
+                  .orElse(new ArrayList<>())
+          );
         }
       }
     }
 
-    return Optional.of(components);
+    return Optional.of(results);
   }
 
   public String toString() {

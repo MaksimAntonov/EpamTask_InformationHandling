@@ -16,9 +16,7 @@ public class ParagraphToSentenceParser extends CustomParser{
   @Override
   public void parse(TextComponent rootComponent) {
     Pattern pattern = Pattern.compile(SENTENCE_PATTERN);
-    Optional<List<TextComponent>> components = rootComponent.getComponentsByType(
-        ComponentType.PARAGRAPH,
-        new ArrayList<>());
+    Optional<List<TextComponent>> components = rootComponent.getComponentsByType(ComponentType.PARAGRAPH);
 
     if (components.isPresent()) {
       for (TextComponent component : components.get()) {
