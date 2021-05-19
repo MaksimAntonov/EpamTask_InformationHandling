@@ -17,13 +17,12 @@ public class ParagraphToSentenceParser extends CustomParser{
   public void parse(TextComponent rootComponent) {
     Pattern pattern = Pattern.compile(SENTENCE_PATTERN);
     Optional<List<TextComponent>> components = rootComponent.getComponentsByType(
-        rootComponent,
         ComponentType.PARAGRAPH,
         new ArrayList<>());
 
     if (components.isPresent()) {
       for (TextComponent component : components.get()) {
-        Optional<String> baseTextOptional = component.getBaseText(component);
+        Optional<String> baseTextOptional = component.getBaseText();
         if (baseTextOptional.isPresent()) {
           String baseText = baseTextOptional.get();
           Matcher matcher = pattern.matcher(baseText);

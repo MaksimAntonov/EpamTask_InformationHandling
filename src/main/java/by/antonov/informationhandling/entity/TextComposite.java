@@ -26,12 +26,12 @@ public class TextComposite extends TextComponent {
     return Optional.of(new ArrayList<>(this.components));
   }
 
-  public Optional<String> getBaseText(TextComponent textComponent) {
-    Optional<List<TextComponent>> components = textComponent.getComponents();
+  public Optional<String> getBaseText() {
+    Optional<List<TextComponent>> components = this.getComponents();
     if (components.isPresent()) {
       for (TextComponent component : components.get()) {
         if (component.getComponentType().equals(ComponentType.BASE_TEXT)) {
-          textComponent.remove(component);
+          this.remove(component);
           return Optional.of(component.toString());
         }
       }
@@ -41,15 +41,16 @@ public class TextComposite extends TextComponent {
   }
 
   public Optional<List<TextComponent>> getComponentsByType(
-      TextComponent textComponent, ComponentType componentType, List<TextComponent> components
+      ComponentType componentType,
+      List<TextComponent> components
   ) {
-    Optional<List<TextComponent>> componentChild = textComponent.getComponents();
+    Optional<List<TextComponent>> componentChild = this.getComponents();
     if (componentChild.isPresent()) {
       for (TextComponent component : componentChild.get()) {
         if (component.getComponentType().equals(componentType)) {
           components.add(component);
         } else {
-          this.getComponentsByType(component, componentType, components);
+          component.getComponentsByType(componentType, components);
         }
       }
     }

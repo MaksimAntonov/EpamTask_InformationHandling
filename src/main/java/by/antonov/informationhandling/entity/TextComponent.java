@@ -25,12 +25,11 @@ public abstract class TextComponent {
     return Optional.empty();
   }
 
-  public Optional<String> getBaseText(TextComponent textComponent) {
+  public Optional<String> getBaseText() {
     return Optional.empty();
   }
 
   public Optional<List<TextComponent>> getComponentsByType(
-      TextComponent textComponent,
       ComponentType componentType,
       List<TextComponent> components)
   {

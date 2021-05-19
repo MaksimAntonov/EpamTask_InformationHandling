@@ -20,13 +20,12 @@ public class TextElementToCharacterParser extends CustomParser{
 
   private void componentParser(TextComponent rootComponent, ComponentType componentType) {
     Optional<List<TextComponent>> components = rootComponent.getComponentsByType(
-        rootComponent,
         componentType,
         new ArrayList<>());
 
     if (components.isPresent()) {
       for (TextComponent component : components.get()) {
-        Optional<String> baseTextOptional = component.getBaseText(component);
+        Optional<String> baseTextOptional = component.getBaseText();
         if (baseTextOptional.isPresent()) {
           String baseText = baseTextOptional.get();
           Pattern pattern = Pattern.compile(SYMBOL_PATTERN);

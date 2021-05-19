@@ -17,13 +17,12 @@ public class SentenceToLexemeParser extends CustomParser{
   public void parse(TextComponent rootComponent) {
     Pattern lexemePattern = Pattern.compile(LEXEME_PATTERN);
     Optional<List<TextComponent>> components = rootComponent.getComponentsByType(
-        rootComponent,
         ComponentType.SENTENCE,
         new ArrayList<>());
 
     if (components.isPresent()) {
       for (TextComponent component : components.get()) {
-        Optional<String> baseTextOptional = component.getBaseText(component);
+        Optional<String> baseTextOptional = component.getBaseText();
         if (baseTextOptional.isPresent()) {
           String baseText = baseTextOptional.get();
           Matcher matcher = lexemePattern.matcher(baseText);

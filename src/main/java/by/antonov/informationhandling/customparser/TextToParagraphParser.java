@@ -14,7 +14,7 @@ public class TextToParagraphParser extends CustomParser{
   @Override
   public void parse(TextComponent component) {
     Pattern pattern = Pattern.compile(PARAGRAPH_PATTERN);
-    Optional<String> baseTextOptional = component.getBaseText(component);
+    Optional<String> baseTextOptional = component.getBaseText();
     if (baseTextOptional.isPresent()) {
       String baseText = baseTextOptional.get();
       Matcher matcher = pattern.matcher(baseText);
