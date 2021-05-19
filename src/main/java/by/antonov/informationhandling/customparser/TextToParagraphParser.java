@@ -4,6 +4,7 @@ import by.antonov.informationhandling.entity.BaseTextLeaf;
 import by.antonov.informationhandling.entity.TextComponent;
 import by.antonov.informationhandling.entity.ComponentType;
 import by.antonov.informationhandling.entity.TextComposite;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,21 +12,23 @@ public class TextToParagraphParser extends CustomParser{
   private final static String PARAGRAPH_PATTERN = "(?: *|\\t?)(?<paragraph>.+?)(?:\\n {2,4}|\\n\\t|$)";
 
   @Override
-  public void handle(TextComponent component) {
+  public void parse(TextComponent component) {
     Pattern pattern = Pattern.compile(PARAGRAPH_PATTERN);
-    String baseText = component.getBaseText(component);
+    Optional<String> baseTextOptional = component.getBaseText(component);
+    if (baseTextOptional.isPresent()) {
+      String baseText = baseTextOptional.get();
+      Matcher matcher = pattern.matcher(baseText);
+      while (matcher.find()) {
+        TextComponent paragraphComponent = new TextComposite(ComponentType.PARAGRAPH);
 
-    Matcher matcher = pattern.matcher(baseText);
-    while (matcher.find()) {
-      TextComponent paragraphComponent = new TextComposite(ComponentType.PARAGRAPH);
-
-      TextComponent textElement = new BaseTextLeaf(matcher.group("paragraph").trim());
-      paragraphComponent.add(textElement);
-      component.add(paragraphComponent);
+        TextComponent textElement = new BaseTextLeaf(matcher.group("paragraph").trim());
+        paragraphComponent.add(textElement);
+        component.add(paragraphComponent);
+      }
     }
 
     if (this.hasNextParser()) {
-      this.nextParser.handle(component);
+      this.nextParser.parse(component);
     }
   }
 }

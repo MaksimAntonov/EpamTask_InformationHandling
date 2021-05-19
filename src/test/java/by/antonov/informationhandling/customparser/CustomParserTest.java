@@ -36,7 +36,7 @@ public class CustomParserTest {
     sentenceParser.nextParser(expressionParser);
     textToParagraphParser.nextParser(sentenceParser);
 
-    textToParagraphParser.handle(rootComponent);
+    textToParagraphParser.parse(rootComponent);
 
     String actual = rootComponent.toString();
 

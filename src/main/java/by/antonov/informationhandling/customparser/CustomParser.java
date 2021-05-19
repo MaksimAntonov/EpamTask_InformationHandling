@@ -13,5 +13,5 @@ public abstract class CustomParser {
     return (this.nextParser != null);
   }
 
-  public abstract void handle(TextComponent rootComponent);
+  public abstract void parse(TextComponent rootComponent);
 }

@@ -39,7 +39,7 @@ public class Main {
       sentenceParser.nextParser(expressionParser);
       textToParagraphParser.nextParser(sentenceParser);
 
-      textToParagraphParser.handle(rootComponent);
+      textToParagraphParser.parse(rootComponent);
 
       System.out.println("\nDeparsing: \n" + rootComponent);
     } catch (CustomException e) {

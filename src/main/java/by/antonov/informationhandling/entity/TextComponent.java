@@ -1,6 +1,7 @@
 package by.antonov.informationhandling.entity;
 
 import java.util.List;
+import java.util.Optional;
 
 public abstract class TextComponent {
 
@@ -20,16 +21,19 @@ public abstract class TextComponent {
   public void remove(TextComponent component) {
   }
 
-  public List<TextComponent> getComponents() {
-    return null;
+  public Optional<List<TextComponent>> getComponents() {
+    return Optional.empty();
   }
 
-  public String getBaseText(TextComponent textComponent) {
-    return null;
+  public Optional<String> getBaseText(TextComponent textComponent) {
+    return Optional.empty();
   }
 
-  public List<TextComponent> getComponentsByType(TextComponent textComponent, ComponentType componentType,
-      List<TextComponent> components) {
-    return null;
+  public Optional<List<TextComponent>> getComponentsByType(
+      TextComponent textComponent,
+      ComponentType componentType,
+      List<TextComponent> components)
+  {
+    return Optional.empty();
   }
 }

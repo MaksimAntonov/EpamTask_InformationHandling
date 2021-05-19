@@ -2,6 +2,7 @@ package by.antonov.informationhandling.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class TextComposite extends TextComponent {
   private final List<TextComponent> components;
@@ -21,28 +22,30 @@ public class TextComposite extends TextComponent {
     this.components.remove(component);
   }
 
-  public List<TextComponent> getComponents() {
-    return new ArrayList<>(this.components);
+  public Optional<List<TextComponent>> getComponents() {
+    return Optional.of(new ArrayList<>(this.components));
   }
 
-  public String getBaseText(TextComponent textComponent) {
-    List<TextComponent> components = textComponent.getComponents();
-    for (TextComponent component : components) {
-      if (component.getComponentType().equals(ComponentType.BASE_TEXT)) {
-        textComponent.remove(component);
-        return component.toString();
+  public Optional<String> getBaseText(TextComponent textComponent) {
+    Optional<List<TextComponent>> components = textComponent.getComponents();
+    if (components.isPresent()) {
+      for (TextComponent component : components.get()) {
+        if (component.getComponentType().equals(ComponentType.BASE_TEXT)) {
+          textComponent.remove(component);
+          return Optional.of(component.toString());
+        }
       }
     }
 
-    return null;
+    return Optional.empty();
   }
 
-  public List<TextComponent> getComponentsByType(
+  public Optional<List<TextComponent>> getComponentsByType(
       TextComponent textComponent, ComponentType componentType, List<TextComponent> components
   ) {
-    List<TextComponent> componentChild = textComponent.getComponents();
-    if (componentChild != null) {
-      for (TextComponent component : componentChild) {
+    Optional<List<TextComponent>> componentChild = textComponent.getComponents();
+    if (componentChild.isPresent()) {
+      for (TextComponent component : componentChild.get()) {
         if (component.getComponentType().equals(componentType)) {
           components.add(component);
         } else {
@@ -51,7 +54,7 @@ public class TextComposite extends TextComponent {
       }
     }
 
-    return components;
+    return Optional.of(components);
   }
 
   public String toString() {
