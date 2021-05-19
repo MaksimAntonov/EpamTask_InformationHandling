@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 public abstract class TextComponent {
-
   private final ComponentType componentType;
 
   protected TextComponent(ComponentType componentType) {
