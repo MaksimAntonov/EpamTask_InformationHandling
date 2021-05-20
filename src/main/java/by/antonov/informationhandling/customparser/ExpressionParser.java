@@ -3,34 +3,32 @@ package by.antonov.informationhandling.customparser;
 import by.antonov.informationhandling.entity.BaseTextLeaf;
 import by.antonov.informationhandling.entity.ComponentType;
 import by.antonov.informationhandling.entity.TextComponent;
-import by.antonov.informationhandling.entity.TextComposite;
-import java.util.ArrayList;
+import by.antonov.informationhandling.interpreter.Interpreter;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ParagraphToSentenceParser extends CustomParser{
-  private final static String SENTENCE_PATTERN = "(?<sentence>\\S.*?[?!.]+)(?:\\s+|$)";
+public class ExpressionParser extends CustomParser {
+  private final static String EXPRESSION_PATTERN = "(?:\\s)(?<expression>\\(?[\\d~|<>&^()]{2,}\\)?)";
 
   @Override
   public void parse(TextComponent rootComponent) {
-    Pattern pattern = Pattern.compile(SENTENCE_PATTERN);
-    Optional<List<TextComponent>> components = rootComponent.getComponentsByType(ComponentType.PARAGRAPH);
+    Pattern expressionPattern = Pattern.compile(EXPRESSION_PATTERN);
+    Interpreter interpreter = new Interpreter();
+    Optional<List<TextComponent>> components = rootComponent.getComponentsByType(ComponentType.SENTENCE);
 
     if (components.isPresent()) {
       for (TextComponent component : components.get()) {
         Optional<String> baseTextOptional = component.getBaseText();
         if (baseTextOptional.isPresent()) {
           String baseText = baseTextOptional.get();
-          Matcher matcher = pattern.matcher(baseText);
+          Matcher matcher = expressionPattern.matcher(baseText);
           while (matcher.find()) {
-            TextComponent paragraphComponent = new TextComposite(ComponentType.SENTENCE);
-            TextComponent textElement = new BaseTextLeaf(matcher.group("sentence").trim());
-
-            paragraphComponent.add(textElement);
-            component.add(paragraphComponent);
+            String originalText = matcher.group("expression");
+            baseText = baseText.replace(originalText, "" + interpreter.calculateExpression(originalText));
           }
+          component.add(new BaseTextLeaf(baseText));
         }
       }
     }

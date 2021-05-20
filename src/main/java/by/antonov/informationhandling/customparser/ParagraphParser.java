@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TextToParagraphParser extends CustomParser{
+public class ParagraphParser extends CustomParser{
   private final static String PARAGRAPH_PATTERN = "(?: *|\\t?)(?<paragraph>.+?)(?:\\n {2,4}|\\n\\t|$)";
 
   @Override

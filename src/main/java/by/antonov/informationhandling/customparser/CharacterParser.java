@@ -3,13 +3,12 @@ package by.antonov.informationhandling.customparser;
 import by.antonov.informationhandling.entity.ComponentType;
 import by.antonov.informationhandling.entity.TextComponent;
 import by.antonov.informationhandling.entity.TextSymbol;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TextElementToCharacterParser extends CustomParser{
+public class CharacterParser extends CustomParser{
   private final static String SYMBOL_PATTERN = "(?<symbol>[A-Za-zА-Яа-яЁё0-9'-])";
 
   @Override

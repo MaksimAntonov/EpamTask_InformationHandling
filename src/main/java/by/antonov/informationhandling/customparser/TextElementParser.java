@@ -5,13 +5,12 @@ import by.antonov.informationhandling.entity.ComponentType;
 import by.antonov.informationhandling.entity.TextComponent;
 import by.antonov.informationhandling.entity.TextComposite;
 import by.antonov.informationhandling.entity.TextSymbol;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class LexemeToTextElement extends CustomParser {
+public class TextElementParser extends CustomParser {
   private final static String TEXT_ELEMENT_PATTERN = "^(?<before>[()\"'-]?)(?<element>[A-zА-яЁё0-9-']+)(?<after>[),!.?\"']*)$";
   private final static String NUMBER_SYMBOL_PATTERN = "\\d+";
 
