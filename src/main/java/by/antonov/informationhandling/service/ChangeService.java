@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChangeService {
-  public static TextComponent deleteSentencesByWordCount(TextComponent textComponent, Integer minWordsCount) {
+  public static void deleteSentencesByWordCount(TextComponent textComponent, Integer minWordsCount) {
     List<TextComponent> paragraphs = textComponent.getComponentsByType(ComponentType.PARAGRAPH)
         .orElse(new ArrayList<>());
 
@@ -18,7 +18,5 @@ public class ChangeService {
         }
       }
     }
-
-    return textComponent;
   }
 }
