@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class TextComposite extends TextComponent {
+  private static final String PARAGRAPH_DELIMITER = "\n";
+  private static final String LEXEME_DELIMITER = " ";
   private final List<TextComponent> components;
 
   public TextComposite(ComponentType componentType) {
@@ -28,16 +30,17 @@ public class TextComposite extends TextComponent {
 
   public Optional<String> getBaseText() {
     Optional<List<TextComponent>> components = this.getComponents();
+    Optional<String> optionalResult = Optional.empty();
     if (components.isPresent()) {
       for (TextComponent component : components.get()) {
-        if (component.getComponentType().equals(ComponentType.BASE_TEXT)) {
+        if (component.getComponentType() == ComponentType.BASE_TEXT) {
           this.remove(component);
-          return Optional.of(component.toString());
+          optionalResult = Optional.of(component.toString());
         }
       }
     }
 
-    return Optional.empty();
+    return optionalResult;
   }
 
   public Optional<List<TextComponent>> getComponentsByType(ComponentType componentType) {
@@ -46,13 +49,12 @@ public class TextComposite extends TextComponent {
     Optional<List<TextComponent>> components = this.getComponents();
     if (components.isPresent()) {
       for (TextComponent component : components.get()) {
-        if (component.getComponentType().equals(componentType)) {
+        if (component.getComponentType() == componentType) {
           results.add(component);
         } else {
-          results.addAll(
-              component.getComponentsByType(componentType)
-                  .orElse(new ArrayList<>())
-          );
+          if (getClass().equals(component.getClass())) {
+            results.addAll(component.getComponentsByType(componentType).orElse(new ArrayList<>()));
+          }
         }
       }
     }
@@ -65,8 +67,8 @@ public class TextComposite extends TextComponent {
     components.forEach(component -> {
       ComponentType componentType = component.getComponentType();
       switch (componentType) {
-        case PARAGRAPH -> sb.append(component).append("\n");
-        case SENTENCE, LEXEME -> sb.append(component).append(" ");
+        case PARAGRAPH -> sb.append(component).append(PARAGRAPH_DELIMITER);
+        case SENTENCE, LEXEME -> sb.append(component).append(LEXEME_DELIMITER);
         default -> sb.append(component);
       }
     });

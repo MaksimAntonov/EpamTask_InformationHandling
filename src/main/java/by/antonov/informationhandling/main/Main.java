@@ -1,18 +1,21 @@
 package by.antonov.informationhandling.main;
 
 import by.antonov.informationhandling.customparser.CustomParser;
-import by.antonov.informationhandling.customparser.ExpressionForSentence;
-import by.antonov.informationhandling.customparser.LexemeToTextElement;
-import by.antonov.informationhandling.customparser.ParagraphToSentenceParser;
-import by.antonov.informationhandling.customparser.TextElementToCharacterParser;
-import by.antonov.informationhandling.customparser.SentenceToLexemeParser;
-import by.antonov.informationhandling.customparser.TextToParagraphParser;
+import by.antonov.informationhandling.customparser.ExpressionParser;
+import by.antonov.informationhandling.customparser.TextElementParser;
+import by.antonov.informationhandling.customparser.SentenceParser;
+import by.antonov.informationhandling.customparser.CharacterParser;
+import by.antonov.informationhandling.customparser.LexemeParser;
+import by.antonov.informationhandling.customparser.ParagraphParser;
 import by.antonov.informationhandling.customreader.CustomReader;
 import by.antonov.informationhandling.entity.BaseTextLeaf;
 import by.antonov.informationhandling.entity.ComponentType;
 import by.antonov.informationhandling.entity.TextComponent;
 import by.antonov.informationhandling.entity.TextComposite;
 import by.antonov.informationhandling.exception.CustomException;
+import by.antonov.informationhandling.service.CalculationService;
+import java.util.Comparator;
+import java.util.Map.Entry;
 
 public class Main {
   public static void main(String[] args) {
@@ -26,12 +29,12 @@ public class Main {
       TextComponent baseText = new BaseTextLeaf(string);
       rootComponent.add(baseText);
 
-      CustomParser textToParagraphParser = new TextToParagraphParser();
-      CustomParser sentenceParser = new ParagraphToSentenceParser();
-      CustomParser expressionParser = new ExpressionForSentence();
-      CustomParser lexemeParser = new SentenceToLexemeParser();
-      CustomParser textElementParser = new LexemeToTextElement();
-      CustomParser characterParser = new TextElementToCharacterParser();
+      CustomParser textToParagraphParser = new ParagraphParser();
+      CustomParser sentenceParser = new SentenceParser();
+      CustomParser expressionParser = new ExpressionParser();
+      CustomParser lexemeParser = new LexemeParser();
+      CustomParser textElementParser = new TextElementParser();
+      CustomParser characterParser = new CharacterParser();
 
       textElementParser.nextParser(characterParser);
       lexemeParser.nextParser(textElementParser);
@@ -40,6 +43,11 @@ public class Main {
       textToParagraphParser.nextParser(sentenceParser);
 
       textToParagraphParser.parse(rootComponent);
+
+      CalculationService.wordsCountInText(rootComponent).entrySet().stream()
+          .sorted((entry1, entry2) -> entry2.getValue() - entry1.getValue()).forEach((entry) -> {
+        System.out.println(entry.getKey() + " / " + entry.getValue());
+      });
 
       System.out.println("\nDeparsing: \n" + rootComponent);
     } catch (CustomException e) {

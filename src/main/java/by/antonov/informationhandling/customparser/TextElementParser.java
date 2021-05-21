@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TextElementParser extends CustomParser {
-  private final static String TEXT_ELEMENT_PATTERN = "^(?<before>[()\"'-]?)(?<element>[A-zА-яЁё0-9-']+)(?<after>[),!.?\"']*)$";
+  private final static String TEXT_ELEMENT_PATTERN = "^(?<before>[()\"'-]?)(?<element>[A-zА-яЁё0-9-]*)(?<after>[),!.?\"']*)$";
   private final static String NUMBER_SYMBOL_PATTERN = "\\d+";
 
   @Override
@@ -34,16 +34,18 @@ public class TextElementParser extends CustomParser {
               }
             }
 
-            String elementText = matcher.group("element");
-            TextComponent textElement;
-            if (elementText.matches(NUMBER_SYMBOL_PATTERN)) {
-              textElement = new TextComposite(ComponentType.NUMBER);
-            } else {
-              textElement = new TextComposite(ComponentType.WORD);
-            }
+            if (!matcher.group("element").isEmpty()) {
+              String elementText = matcher.group("element");
+              TextComponent textElement;
+              if (elementText.matches(NUMBER_SYMBOL_PATTERN)) {
+                textElement = new TextComposite(ComponentType.NUMBER);
+              } else {
+                textElement = new TextComposite(ComponentType.WORD);
+              }
 
-            textElement.add(new BaseTextLeaf(elementText));
-            component.add(textElement);
+              textElement.add(new BaseTextLeaf(elementText));
+              component.add(textElement);
+            }
 
             if (!matcher.group("after").isEmpty()) {
               String[] strSymbols = matcher.group("after").split("");

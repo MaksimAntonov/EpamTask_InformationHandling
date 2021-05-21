@@ -12,8 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Interpreter {
+  private static final Logger logger = LogManager.getLogger();
   private final static String SUB_EXPRESSION_PATTERN = ".*(?<subexpression>\\([\\d|<>&~^]+\\)).*";
   private final static String PRIORITY_LEVEL_1_PATTERN = "(?<step>~[-\\d]+)";
   private final static String PRIORITY_LEVEL_2_PATTERN = "(?<step>[-\\d]+[<>]{2}[-\\d]+)";
@@ -25,6 +28,7 @@ public class Interpreter {
   private final List<Expression> expressionList = new ArrayList<>();
 
   public Number calculateExpression(String expression) {
+    logger.info(String.format("Calculate expression: %s", expression));
     Pattern pattern = Pattern.compile(SUB_EXPRESSION_PATTERN);
     while (Pattern.matches(SUB_EXPRESSION_PATTERN, expression)) {
       Matcher matcher = pattern.matcher(expression);

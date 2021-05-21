@@ -59,12 +59,12 @@ public class ParagraphComparatorTest {
     TextComponent baseText = new BaseTextLeaf(text);
     component.add(baseText);
 
-    CustomParser textToParagraphParser = new TextToParagraphParser();
-    CustomParser sentenceParser = new ParagraphToSentenceParser();
-    CustomParser expressionParser = new ExpressionForSentence();
-    CustomParser lexemeParser = new SentenceToLexemeParser();
-    CustomParser textElementParser = new LexemeToTextElement();
-    CustomParser characterParser = new TextElementToCharacterParser();
+    CustomParser textToParagraphParser = new ParagraphParser();
+    CustomParser sentenceParser = new SentenceParser();
+    CustomParser expressionParser = new ExpressionParser();
+    CustomParser lexemeParser = new LexemeParser();
+    CustomParser textElementParser = new TextElementParser();
+    CustomParser characterParser = new CharacterParser();
 
     textElementParser.nextParser(characterParser);
     lexemeParser.nextParser(textElementParser);
