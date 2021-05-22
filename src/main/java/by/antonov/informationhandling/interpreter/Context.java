@@ -3,6 +3,7 @@ package by.antonov.informationhandling.interpreter;
 import java.util.ArrayDeque;
 
 public class Context {
+
   private final ArrayDeque<Integer> integers = new ArrayDeque<>();
 
   public Integer popValue() {

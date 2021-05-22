@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 public class SearchService {
+
   public static List<TextComponent> findSentenceWithLongestWord(TextComponent textComponent) {
     List<TextComponent> sentences = textComponent.getComponentsByType(ComponentType.SENTENCE).orElse(new ArrayList<>());
     Set<TextComponent> resultSentences = new HashSet<>();

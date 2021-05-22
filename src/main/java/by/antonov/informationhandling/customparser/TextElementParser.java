@@ -11,6 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TextElementParser extends CustomParser {
+
   private final static String TEXT_ELEMENT_PATTERN = "^(?<before>[()\"'-]?)(?<element>[A-zА-яЁё0-9-]*)(?<after>[),!.?\"']*)$";
   private final static String NUMBER_SYMBOL_PATTERN = "\\d+";
 

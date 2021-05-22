@@ -1,12 +1,12 @@
 package by.antonov.informationhandling.main;
 
+import by.antonov.informationhandling.customparser.CharacterParser;
 import by.antonov.informationhandling.customparser.CustomParser;
 import by.antonov.informationhandling.customparser.ExpressionParser;
-import by.antonov.informationhandling.customparser.TextElementParser;
-import by.antonov.informationhandling.customparser.SentenceParser;
-import by.antonov.informationhandling.customparser.CharacterParser;
 import by.antonov.informationhandling.customparser.LexemeParser;
 import by.antonov.informationhandling.customparser.ParagraphParser;
+import by.antonov.informationhandling.customparser.SentenceParser;
+import by.antonov.informationhandling.customparser.TextElementParser;
 import by.antonov.informationhandling.customreader.CustomReader;
 import by.antonov.informationhandling.entity.BaseTextLeaf;
 import by.antonov.informationhandling.entity.ComponentType;
@@ -14,10 +14,9 @@ import by.antonov.informationhandling.entity.TextComponent;
 import by.antonov.informationhandling.entity.TextComposite;
 import by.antonov.informationhandling.exception.CustomException;
 import by.antonov.informationhandling.service.CalculationService;
-import java.util.Comparator;
-import java.util.Map.Entry;
 
 public class Main {
+
   public static void main(String[] args) {
     try {
       CustomReader reader = new CustomReader();
@@ -44,10 +43,10 @@ public class Main {
 
       textToParagraphParser.parse(rootComponent);
 
-      CalculationService.wordsCountInText(rootComponent).entrySet().stream()
-          .sorted((entry1, entry2) -> entry2.getValue() - entry1.getValue()).forEach((entry) -> {
-        System.out.println(entry.getKey() + " / " + entry.getValue());
-      });
+      CalculationService.wordsCountInText(rootComponent, 2)
+                        .forEach((key, value) -> {
+                          System.out.println(key + " / " + value);
+                        });
 
       System.out.println("\nDeparsing: \n" + rootComponent);
     } catch (CustomException e) {

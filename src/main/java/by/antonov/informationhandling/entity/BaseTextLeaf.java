@@ -1,6 +1,7 @@
 package by.antonov.informationhandling.entity;
 
-public class BaseTextLeaf extends TextComponent{
+public class BaseTextLeaf extends TextComponent {
+
   private final String baseText;
 
   public BaseTextLeaf(String baseText) {

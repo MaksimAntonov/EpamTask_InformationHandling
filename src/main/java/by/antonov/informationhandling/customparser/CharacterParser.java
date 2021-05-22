@@ -8,7 +8,8 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CharacterParser extends CustomParser{
+public class CharacterParser extends CustomParser {
+
   private final static String SYMBOL_PATTERN = "(?<symbol>[A-Za-zА-Яа-яЁё0-9'-])";
 
   @Override

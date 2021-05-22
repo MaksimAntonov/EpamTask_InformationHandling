@@ -3,6 +3,7 @@ package by.antonov.informationhandling.customparser;
 import by.antonov.informationhandling.entity.TextComponent;
 
 public abstract class CustomParser {
+
   protected CustomParser nextParser;
 
   public void nextParser(CustomParser parser) {

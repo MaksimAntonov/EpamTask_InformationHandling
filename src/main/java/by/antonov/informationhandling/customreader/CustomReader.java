@@ -9,8 +9,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class CustomReader {
+
   private static final Logger logger = LogManager.getLogger();
-  public String readDataFromFile(String filepath) throws CustomException {
+
+  public String readDataFromFile(String filepath)
+      throws CustomException {
     logger.info(String.format("Reading file %s.", filepath));
     InputStream inputStream = getClass().getClassLoader().getResourceAsStream(filepath);
 

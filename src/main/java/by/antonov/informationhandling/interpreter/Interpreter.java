@@ -16,6 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Interpreter {
+
   private static final Logger logger = LogManager.getLogger();
   private final static String SUB_EXPRESSION_PATTERN = ".*(?<subexpression>\\([\\d|<>&~^]+\\)).*";
   private final static String PRIORITY_LEVEL_1_PATTERN = "(?<step>~[-\\d]+)";

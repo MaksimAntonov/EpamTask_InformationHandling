@@ -4,17 +4,21 @@ import by.antonov.informationhandling.entity.ComponentType;
 import by.antonov.informationhandling.entity.TextComponent;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class CalculationService {
+
   private final static String VOWELS_PATTERN = "[aeiou]";
   private final static String CONSONANTS_PATTERN = "[bcdfghjklmnpqrstvwxyz]";
 
   public static Integer countOfComponentsByType(TextComponent rootComponent, ComponentType componentType) {
     List<TextComponent> components = rootComponent.getComponentsByType(componentType)
-        .orElse(new ArrayList<>());
+                                                  .orElse(new ArrayList<>());
     return components.size();
   }
 
@@ -26,7 +30,7 @@ public class CalculationService {
     return countOfLettersInSentenceByPattern(sentence, CONSONANTS_PATTERN);
   }
 
-  public static Map<String, Integer> wordsCountInText(TextComponent component) {
+  public static Map<String, Integer> wordsCountInText(TextComponent component, Integer minimumCount) {
     Map<String, Integer> wordsCount = new HashMap<>();
 
     List<TextComponent> words = component.getComponentsByType(ComponentType.WORD).orElse(new ArrayList<>());
@@ -35,7 +39,15 @@ public class CalculationService {
       wordsCount.merge(wordString, 1, Integer::sum);
     }
 
-    return wordsCount;
+    return wordsCount.entrySet().stream()
+                     .filter((entry) -> entry.getValue() >= minimumCount)
+                     .sorted((entry1, entry2) -> entry2.getValue() - entry1.getValue())
+                     .collect(Collectors.toMap(
+                         Entry::getKey,
+                         Entry::getValue,
+                         (oldValue, newValue) -> oldValue,
+                         LinkedHashMap::new)
+                     );
   }
 
   private static Integer countOfLettersInSentenceByPattern(TextComponent sentence, String letterPattern) {

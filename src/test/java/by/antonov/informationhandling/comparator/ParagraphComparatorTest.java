@@ -1,6 +1,12 @@
 package by.antonov.informationhandling.comparator;
 
-import by.antonov.informationhandling.customparser.*;
+import by.antonov.informationhandling.customparser.CharacterParser;
+import by.antonov.informationhandling.customparser.CustomParser;
+import by.antonov.informationhandling.customparser.ExpressionParser;
+import by.antonov.informationhandling.customparser.LexemeParser;
+import by.antonov.informationhandling.customparser.ParagraphParser;
+import by.antonov.informationhandling.customparser.SentenceParser;
+import by.antonov.informationhandling.customparser.TextElementParser;
 import by.antonov.informationhandling.entity.BaseTextLeaf;
 import by.antonov.informationhandling.entity.ComponentType;
 import by.antonov.informationhandling.entity.TextComponent;
@@ -15,6 +21,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class ParagraphComparatorTest {
+
   private TextComponent rootComponent;
   private TextComponent expectedComponent;
 
@@ -44,12 +51,12 @@ public class ParagraphComparatorTest {
   public void compareTest() {
     Comparator<TextComponent> componentComparator = new ParagraphComparator();
     List<String> actual = rootComponent.getComponentsByType(ComponentType.PARAGRAPH).orElse(new ArrayList<>())
-        .stream().sorted(componentComparator)
-        .map(Object::toString)
-        .collect(Collectors.toList());
+                                       .stream().sorted(componentComparator)
+                                       .map(Object::toString)
+                                       .collect(Collectors.toList());
     List<String> expected = expectedComponent.getComponentsByType(ComponentType.PARAGRAPH).orElse(new ArrayList<>())
-        .stream().map(Objects::toString)
-        .collect(Collectors.toList());
+                                             .stream().map(Objects::toString)
+                                             .collect(Collectors.toList());
 
     Assert.assertEquals(actual, expected);
   }

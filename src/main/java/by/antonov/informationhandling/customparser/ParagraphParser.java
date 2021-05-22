@@ -1,14 +1,15 @@
 package by.antonov.informationhandling.customparser;
 
 import by.antonov.informationhandling.entity.BaseTextLeaf;
-import by.antonov.informationhandling.entity.TextComponent;
 import by.antonov.informationhandling.entity.ComponentType;
+import by.antonov.informationhandling.entity.TextComponent;
 import by.antonov.informationhandling.entity.TextComposite;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ParagraphParser extends CustomParser{
+public class ParagraphParser extends CustomParser {
+
   private final static String PARAGRAPH_PATTERN = "(?: *|\\t?)(?<paragraph>.+?)(?:\\n {2,4}|\\n\\t|$)";
 
   @Override

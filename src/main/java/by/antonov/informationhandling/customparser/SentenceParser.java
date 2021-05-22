@@ -9,7 +9,8 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SentenceParser extends CustomParser{
+public class SentenceParser extends CustomParser {
+
   private final static String SENTENCE_PATTERN = "(?<sentence>\\S.*?[?!.]+)(?:\\s+|$)";
 
   @Override

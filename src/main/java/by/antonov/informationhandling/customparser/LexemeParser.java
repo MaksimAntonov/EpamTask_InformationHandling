@@ -9,7 +9,8 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class LexemeParser extends CustomParser{
+public class LexemeParser extends CustomParser {
+
   private final static String LEXEME_PATTERN = "(?<lexeme>\\S+)";
 
   @Override

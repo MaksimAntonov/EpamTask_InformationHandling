@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class TextComposite extends TextComponent {
+
   private static final String PARAGRAPH_DELIMITER = "\n";
   private static final String LEXEME_DELIMITER = " ";
   private final List<TextComponent> components;

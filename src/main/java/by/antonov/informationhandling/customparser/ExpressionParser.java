@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ExpressionParser extends CustomParser {
+
   private final static String EXPRESSION_PATTERN = "(?:\\s)(?<expression>\\(?[\\d~|<>&^()]{2,}\\)?)";
 
   @Override

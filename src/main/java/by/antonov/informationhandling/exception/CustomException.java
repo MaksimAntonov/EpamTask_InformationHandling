@@ -1,6 +1,7 @@
 package by.antonov.informationhandling.exception;
 
-public class CustomException extends Exception{
+public class CustomException extends Exception {
+
   public CustomException() {
     super();
   }

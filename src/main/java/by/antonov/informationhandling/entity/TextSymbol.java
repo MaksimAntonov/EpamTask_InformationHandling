@@ -1,6 +1,7 @@
 package by.antonov.informationhandling.entity;
 
 public class TextSymbol extends TextComponent {
+
   private final char charValue;
 
   public TextSymbol(ComponentType componentType, char symbol) {

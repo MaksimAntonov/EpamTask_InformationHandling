@@ -1,13 +1,15 @@
 package by.antonov.informationhandling.interpreter;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
+
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class InterpreterTest {
-  @DataProvider (name = "interpreterDataTest")
+
+  @DataProvider(name = "interpreterDataTest")
   public Object[][] interpreterDataTest() {
-    return new Object[][] {
+    return new Object[][]{
         {"13<<2", 52},
         {"3>>5", 0},
         {"~6&9|(3&4)", 9},
@@ -17,7 +19,7 @@ public class InterpreterTest {
     };
   }
 
-  @Test (dataProvider = "interpreterDataTest")
+  @Test(dataProvider = "interpreterDataTest")
   public void interpreterTest(String expression, Number expected) {
     Interpreter interpreter = new Interpreter();
     Number actual = interpreter.calculateExpression(expression);

@@ -4,6 +4,7 @@ import by.antonov.informationhandling.interpreter.Context;
 import by.antonov.informationhandling.interpreter.Expression;
 
 public class NonTerminalExpression implements Expression {
+
   private final Integer numberValue;
 
   public NonTerminalExpression(Integer numberValue) {
