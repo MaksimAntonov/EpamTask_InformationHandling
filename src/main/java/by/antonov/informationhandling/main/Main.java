@@ -13,7 +13,6 @@ import by.antonov.informationhandling.entity.ComponentType;
 import by.antonov.informationhandling.entity.TextComponent;
 import by.antonov.informationhandling.entity.TextComposite;
 import by.antonov.informationhandling.exception.CustomException;
-import by.antonov.informationhandling.service.CalculationService;
 
 public class Main {
 
@@ -42,11 +41,6 @@ public class Main {
       textToParagraphParser.nextParser(sentenceParser);
 
       textToParagraphParser.parse(rootComponent);
-
-      CalculationService.wordsCountInText(rootComponent, 2)
-                        .forEach((key, value) -> {
-                          System.out.println(key + " / " + value);
-                        });
 
       System.out.println("\nDeparsing: \n" + rootComponent);
     } catch (CustomException e) {

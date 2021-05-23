@@ -1,13 +1,5 @@
 package by.antonov.informationhandling.interpreter;
 
-import by.antonov.informationhandling.interpreter.impl.NonTerminalExpression;
-import by.antonov.informationhandling.interpreter.impl.TerminalExpressionAnd;
-import by.antonov.informationhandling.interpreter.impl.TerminalExpressionBitwise;
-import by.antonov.informationhandling.interpreter.impl.TerminalExpressionLeftShift;
-import by.antonov.informationhandling.interpreter.impl.TerminalExpressionOr;
-import by.antonov.informationhandling.interpreter.impl.TerminalExpressionRightShift;
-import by.antonov.informationhandling.interpreter.impl.TerminalExpressionXOR;
-import by.antonov.informationhandling.interpreter.impl.TerminalExpressionZeroFillRightShift;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -78,7 +70,7 @@ public class Interpreter {
 
     while (matcher.find()) {
       String element = matcher.group("numbers");
-      expressionList.add(new NonTerminalExpression(Integer.parseInt(element)));
+      expressionList.add(context -> context.addValue(Integer.parseInt(element)));
     }
 
     Pattern expressionPattern = Pattern.compile(EXPRESSION_PATTERN);
@@ -86,13 +78,13 @@ public class Interpreter {
     while (matcher.find()) {
       String element = matcher.group("expression");
       switch (element) {
-        case "&" -> expressionList.add(new TerminalExpressionAnd());
-        case "|" -> expressionList.add(new TerminalExpressionOr());
-        case "^" -> expressionList.add(new TerminalExpressionXOR());
-        case "<<" -> expressionList.add(new TerminalExpressionLeftShift());
-        case ">>" -> expressionList.add(new TerminalExpressionRightShift());
-        case ">>>" -> expressionList.add(new TerminalExpressionZeroFillRightShift());
-        case "~" -> expressionList.add(new TerminalExpressionBitwise());
+        case "&" -> expressionList.add(context -> context.addValue(context.popValue() & context.popValue()));
+        case "|" -> expressionList.add(context -> context.addValue(context.popValue() | context.popValue()));
+        case "^" -> expressionList.add(context -> context.addValue(context.popValue() ^ context.popValue()));
+        case "<<" -> expressionList.add(context -> context.addValue(context.popValue() << context.popValue()));
+        case ">>" -> expressionList.add(context -> context.addValue(context.popValue() >> context.popValue()));
+        case ">>>" -> expressionList.add(context -> context.addValue(context.popValue() >>> context.popValue()));
+        case "~" -> expressionList.add(context -> context.addValue(~context.popValue()));
       }
     }
   }
