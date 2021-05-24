@@ -1,4 +1,4 @@
-package by.antonov.informationhandling.customparser;
+package by.antonov.informationhandling.parser;
 
 import by.antonov.informationhandling.entity.ComponentType;
 import by.antonov.informationhandling.entity.TextComponent;
@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CharacterParser extends CustomParser {
+public class CharacterParser extends CompositeParser {
 
   private final static String SYMBOL_PATTERN = "(?<symbol>[A-Za-zА-Яа-яЁё0-9'-])";
 

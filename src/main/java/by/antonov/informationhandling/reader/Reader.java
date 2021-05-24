@@ -1,4 +1,4 @@
-package by.antonov.informationhandling.customreader;
+package by.antonov.informationhandling.reader;
 
 import by.antonov.informationhandling.exception.CustomException;
 import java.io.BufferedReader;
@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class CustomReader {
+public class Reader {
 
   private static final Logger logger = LogManager.getLogger();
 

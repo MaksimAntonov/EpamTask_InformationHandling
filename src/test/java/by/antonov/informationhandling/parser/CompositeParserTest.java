@@ -1,4 +1,4 @@
-package by.antonov.informationhandling.customparser;
+package by.antonov.informationhandling.parser;
 
 import by.antonov.informationhandling.entity.BaseTextLeaf;
 import by.antonov.informationhandling.entity.ComponentType;
@@ -7,7 +7,7 @@ import by.antonov.informationhandling.entity.TextComposite;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class CustomParserTest {
+public class CompositeParserTest {
 
   @Test
   public void parserTest() {
@@ -24,12 +24,12 @@ public class CustomParserTest {
     TextComponent baseText = new BaseTextLeaf(string);
     rootComponent.add(baseText);
 
-    CustomParser textToParagraphParser = new ParagraphParser();
-    CustomParser sentenceParser = new SentenceParser();
-    CustomParser expressionParser = new ExpressionParser();
-    CustomParser lexemeParser = new LexemeParser();
-    CustomParser textElementParser = new TextElementParser();
-    CustomParser characterParser = new CharacterParser();
+    CompositeParser textToParagraphParser = new ParagraphParser();
+    CompositeParser sentenceParser = new SentenceParser();
+    CompositeParser expressionParser = new ExpressionParser();
+    CompositeParser lexemeParser = new LexemeParser();
+    CompositeParser textElementParser = new TextElementParser();
+    CompositeParser characterParser = new CharacterParser();
 
     textElementParser.nextParser(characterParser);
     lexemeParser.nextParser(textElementParser);

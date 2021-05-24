@@ -1,4 +1,4 @@
-package by.antonov.informationhandling.customparser;
+package by.antonov.informationhandling.parser;
 
 import by.antonov.informationhandling.entity.BaseTextLeaf;
 import by.antonov.informationhandling.entity.ComponentType;
@@ -9,27 +9,27 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SentenceParser extends CustomParser {
+public class LexemeParser extends CompositeParser {
 
-  private final static String SENTENCE_PATTERN = "(?<sentence>\\S.*?[?!.]+)(?:\\s+|$)";
+  private final static String LEXEME_PATTERN = "(?<lexeme>\\S+)";
 
   @Override
   public void parse(TextComponent rootComponent) {
-    Pattern pattern = Pattern.compile(SENTENCE_PATTERN);
-    Optional<List<TextComponent>> components = rootComponent.getComponentsByType(ComponentType.PARAGRAPH);
+    Pattern lexemePattern = Pattern.compile(LEXEME_PATTERN);
+    Optional<List<TextComponent>> components = rootComponent.getComponentsByType(ComponentType.SENTENCE);
 
     if (components.isPresent()) {
       for (TextComponent component : components.get()) {
         Optional<String> baseTextOptional = component.getBaseText();
         if (baseTextOptional.isPresent()) {
           String baseText = baseTextOptional.get();
-          Matcher matcher = pattern.matcher(baseText);
+          Matcher matcher = lexemePattern.matcher(baseText);
           while (matcher.find()) {
-            TextComponent paragraphComponent = new TextComposite(ComponentType.SENTENCE);
-            TextComponent textElement = new BaseTextLeaf(matcher.group("sentence").trim());
+            TextComponent lexemeComponent = new TextComposite(ComponentType.LEXEME);
+            TextComponent textElement = new BaseTextLeaf(matcher.group("lexeme").trim());
 
-            paragraphComponent.add(textElement);
-            component.add(paragraphComponent);
+            lexemeComponent.add(textElement);
+            component.add(lexemeComponent);
           }
         }
       }

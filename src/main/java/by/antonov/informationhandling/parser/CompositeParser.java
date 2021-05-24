@@ -1,12 +1,12 @@
-package by.antonov.informationhandling.customparser;
+package by.antonov.informationhandling.parser;
 
 import by.antonov.informationhandling.entity.TextComponent;
 
-public abstract class CustomParser {
+public abstract class CompositeParser {
 
-  protected CustomParser nextParser;
+  protected CompositeParser nextParser;
 
-  public void nextParser(CustomParser parser) {
+  public void nextParser(CompositeParser parser) {
     this.nextParser = parser;
   }
 

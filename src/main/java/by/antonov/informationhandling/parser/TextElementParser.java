@@ -1,4 +1,4 @@
-package by.antonov.informationhandling.customparser;
+package by.antonov.informationhandling.parser;
 
 import by.antonov.informationhandling.entity.BaseTextLeaf;
 import by.antonov.informationhandling.entity.ComponentType;
@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TextElementParser extends CustomParser {
+public class TextElementParser extends CompositeParser {
 
   private final static String TEXT_ELEMENT_PATTERN = "^(?<before>[()\"'-]?)(?<element>[A-zА-яЁё0-9-]*)(?<after>[),!.?\"']*)$";
   private final static String NUMBER_SYMBOL_PATTERN = "\\d+";
